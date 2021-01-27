@@ -16,7 +16,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": 4,
-  "iteration": 1611339409476,
+  "iteration": 1611744134911,
   "links": [],
   "panels": [
     {
@@ -340,8 +340,8 @@
       "scopedVars": {
         "K6RequestName": {
           "selected": true,
-          "text": "access-token-request",
-          "value": "access-token-request"
+          "text": "tokeninfo",
+          "value": "tokeninfo"
         }
       },
       "title": "K6 HTTP Request: ${K6RequestName}",
@@ -407,8 +407,8 @@
       "scopedVars": {
         "K6RequestName": {
           "selected": true,
-          "text": "access-token-request",
-          "value": "access-token-request"
+          "text": "tokeninfo",
+          "value": "tokeninfo"
         }
       },
       "seriesOverrides": [],
@@ -520,8 +520,8 @@
       "scopedVars": {
         "K6RequestName": {
           "selected": true,
-          "text": "access-token-request",
-          "value": "access-token-request"
+          "text": "tokeninfo",
+          "value": "tokeninfo"
         }
       },
       "targets": [
@@ -616,8 +616,8 @@
       "scopedVars": {
         "K6RequestName": {
           "selected": true,
-          "text": "access-token-request",
-          "value": "access-token-request"
+          "text": "tokeninfo",
+          "value": "tokeninfo"
         }
       },
       "targets": [
@@ -645,13 +645,13 @@
       },
       "id": 26,
       "panels": [],
-      "repeatIteration": 1611339409476,
+      "repeatIteration": 1611744134911,
       "repeatPanelId": 14,
       "scopedVars": {
         "K6RequestName": {
           "selected": true,
-          "text": "get-login-page",
-          "value": "get-login-page"
+          "text": "access-token-request",
+          "value": "access-token-request"
         }
       },
       "title": "K6 HTTP Request: ${K6RequestName}",
@@ -684,8 +684,8 @@
         },
         "overrides": []
       },
-      "fill": 4,
-      "fillGradient": 8,
+      "fill": 8,
+      "fillGradient": 0,
       "gridPos": {
         "h": 8,
         "w": 6,
@@ -704,7 +704,7 @@
         "values": true
       },
       "lines": true,
-      "linewidth": 2,
+      "linewidth": 1,
       "nullPointMode": "null",
       "options": {
         "alertThreshold": false
@@ -714,14 +714,14 @@
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
-      "repeatIteration": 1611339409476,
+      "repeatIteration": 1611744134911,
       "repeatPanelId": 16,
       "repeatedByRow": true,
       "scopedVars": {
         "K6RequestName": {
           "selected": true,
-          "text": "get-login-page",
-          "value": "get-login-page"
+          "text": "access-token-request",
+          "value": "access-token-request"
         }
       },
       "seriesOverrides": [],
@@ -829,15 +829,15 @@
         "show": false
       },
       "pluginVersion": "7.3.6",
-      "repeatIteration": 1611339409476,
+      "repeatIteration": 1611744134911,
       "repeatPanelId": 20,
       "repeatedByRow": true,
       "reverseYBuckets": false,
       "scopedVars": {
         "K6RequestName": {
           "selected": true,
-          "text": "get-login-page",
-          "value": "get-login-page"
+          "text": "access-token-request",
+          "value": "access-token-request"
         }
       },
       "targets": [
@@ -929,14 +929,14 @@
         "textMode": "auto"
       },
       "pluginVersion": "7.3.6",
-      "repeatIteration": 1611339409476,
+      "repeatIteration": 1611744134911,
       "repeatPanelId": 25,
       "repeatedByRow": true,
       "scopedVars": {
         "K6RequestName": {
           "selected": true,
-          "text": "get-login-page",
-          "value": "get-login-page"
+          "text": "access-token-request",
+          "value": "access-token-request"
         }
       },
       "targets": [
@@ -964,7 +964,7 @@
       },
       "id": 30,
       "panels": [],
-      "repeatIteration": 1611339409476,
+      "repeatIteration": 1611744134911,
       "repeatPanelId": 14,
       "scopedVars": {
         "K6RequestName": {
@@ -1003,8 +1003,8 @@
         },
         "overrides": []
       },
-      "fill": 4,
-      "fillGradient": 8,
+      "fill": 8,
+      "fillGradient": 0,
       "gridPos": {
         "h": 8,
         "w": 6,
@@ -1023,7 +1023,7 @@
         "values": true
       },
       "lines": true,
-      "linewidth": 2,
+      "linewidth": 1,
       "nullPointMode": "null",
       "options": {
         "alertThreshold": false
@@ -1033,7 +1033,7 @@
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
-      "repeatIteration": 1611339409476,
+      "repeatIteration": 1611744134911,
       "repeatPanelId": 16,
       "repeatedByRow": true,
       "scopedVars": {
@@ -1148,7 +1148,7 @@
         "show": false
       },
       "pluginVersion": "7.3.6",
-      "repeatIteration": 1611339409476,
+      "repeatIteration": 1611744134911,
       "repeatPanelId": 20,
       "repeatedByRow": true,
       "reverseYBuckets": false,
@@ -1248,7 +1248,7 @@
         "textMode": "auto"
       },
       "pluginVersion": "7.3.6",
-      "repeatIteration": 1611339409476,
+      "repeatIteration": 1611744134911,
       "repeatPanelId": 25,
       "repeatedByRow": true,
       "scopedVars": {
@@ -1273,7 +1273,7 @@
       "type": "stat"
     }
   ],
-  "refresh": "1s",
+  "refresh": "",
   "schemaVersion": 26,
   "style": "dark",
   "tags": [],
@@ -1287,12 +1287,12 @@
           "text": [
             "access-token-request",
             "authorization-request",
-            "get-login-page"
+            "tokeninfo"
           ],
           "value": [
             "access-token-request",
             "authorization-request",
-            "get-login-page"
+            "tokeninfo"
           ]
         },
         "datasource": "Prometheus",
@@ -1318,7 +1318,7 @@
       {
         "allValue": null,
         "current": {
-          "selected": false,
+          "selected": true,
           "text": "req_duration",
           "value": "req_duration"
         },
@@ -1330,6 +1330,11 @@
         "name": "GoHttpMetricName",
         "options": [
           {
+            "selected": true,
+            "text": "req_duration",
+            "value": "req_duration"
+          },
+          {
             "selected": false,
             "text": "req_blocked",
             "value": "req_blocked"
@@ -1338,11 +1343,6 @@
             "selected": false,
             "text": "req_connecting",
             "value": "req_connecting"
-          },
-          {
-            "selected": true,
-            "text": "req_duration",
-            "value": "req_duration"
           },
           {
             "selected": false,
@@ -1365,7 +1365,7 @@
             "value": "req_waiting"
           }
         ],
-        "query": "req_blocked,req_connecting,req_duration,req_receiving,req_sending,req_tls_handshaking,req_waiting",
+        "query": "req_duration,req_blocked,req_connecting,req_receiving,req_sending,req_tls_handshaking,req_waiting",
         "queryValue": "",
         "skipUrlSync": false,
         "type": "custom"
@@ -1373,7 +1373,7 @@
     ]
   },
   "time": {
-    "from": "now-2m",
+    "from": "now-1m",
     "to": "now"
   },
   "timepicker": {
@@ -1387,5 +1387,5 @@
   "timezone": "",
   "title": "K6-StatsD-Prometheus",
   "uid": "zDpLnqaMz",
-  "version": 27
+  "version": 28
 }
