@@ -1,6 +1,5 @@
-import http from 'k6/http';
-import { check, group, sleep } from 'k6';
-import { pickRealm, pickClient, pickUser, wrapWithErrorCounting, keycloakEndpoints, keycloakLogin, keycloakRefreshTokens } from "./lib/keycloak.js";
+import { check, sleep } from 'k6';
+import { wrapWithErrorCounting, shuffleArray, getTestConfig, setupOpenSessions, Keycloak } from "./lib/keycloak.js";
 import { randomSeed } from 'k6';
 
 export let options = {
@@ -10,25 +9,25 @@ export let options = {
   ],
 };
 
+const config = getTestConfig();
+
 randomSeed(__VU);
+let keycloak = new Keycloak(config.keycloakURL, { offlineTokens: config.offlineTokens });
 
-const realmCount = 10;
-const realm = pickRealm(realmCount);
-const realmId = realm.id;
+export const setup = setupOpenSessions(keycloak, config.realmCount, config.sessionCount);
 
-let user = pickUser(realm);
-let client = pickClient(realm);
-let endpoints = keycloakEndpoints("http://hp-microserver.itix.fr/auth", realmId);
+let mySessions;
 
-let tokens;
-
-function testKCRefreshToken() {
-  if (tokens == null) {
-    tokens = keycloakLogin(endpoints, client, user, ()=>{});
+function testKCRefreshToken(setupData) {
+  if (mySessions == null) {
+    mySessions = [... setupData];
+    shuffleArray(mySessions);
   }
 
-  tokens = keycloakRefreshTokens(endpoints, tokens, client, check);
-  sleep(.05);
+  let session = mySessions.shift();
+  let tokens = keycloak.refreshTokens(session.realm.id, session.tokens, session.client, check);
+  session.tokens = tokens;
+  mySessions.push(session);
 }
 
 export default wrapWithErrorCounting(testKCRefreshToken);

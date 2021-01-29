@@ -1,6 +1,5 @@
-import http from 'k6/http';
-import { check, group, sleep } from 'k6';
-import { pickRealm, pickClient, pickUser, wrapWithErrorCounting, keycloakEndpoints, keycloakLogin, keycloakRefreshTokens } from "./lib/keycloak.js";
+import { check } from 'k6';
+import { wrapWithErrorCounting, Keycloak, getTestConfig, setupOpenSessions, pickRandom } from "./lib/keycloak.js";
 import { randomSeed } from 'k6';
 
 export let options = {
@@ -10,48 +9,16 @@ export let options = {
   ],
 };
 
+const config = getTestConfig();
+
 randomSeed(__VU);
+let keycloak = new Keycloak(config.keycloakURL, { offlineTokens: config.offlineTokens });
 
-const realmCount = 10;
-const realm = pickRealm(realmCount);
-const realmId = realm.id;
+export const setup = setupOpenSessions(keycloak, config.realmCount, config.sessionCount);
 
-let user = pickUser(realm);
-let client = pickClient(realm);
-let endpoints = keycloakEndpoints("http://hp-microserver.itix.fr/auth", realmId);
-
-let tokens;
-
-function testKCUserInfo() {
-  if (tokens == null) {
-    tokens = keycloakLogin(endpoints, client, user, ()=>{});
-  }
-
-  for (;;) {
-    let userinfo = http.get(endpoints.userinfo, { "headers": { "Authorization": `Bearer ${tokens.access_token}`}, "tags": { name: "userinfo" } });
-    if (userinfo.status === 401) {
-      try {
-        console.log("Renewing access_token...")
-        tokens = keycloakRefreshTokens(endpoints, tokens, client, ()=>{});
-        break;
-      } catch (e) {
-        try {
-          console.log("Logging-in...")
-          tokens = keycloakLogin(endpoints, client, user, ()=>{});
-          break;
-        } catch (e) {
-          throw e;
-        }
-      }
-    }
-
-    check(userinfo, {
-      'userinfo.status == 200': (http) => http.status === 200,
-    });
-    break;
-  }
-
-  sleep(.05);
+function testKCUserInfo(mySessions) {
+  let session = pickRandom(mySessions);
+  keycloak.userinfo(session.realm.id, session.tokens, check);
 }
 
 export default wrapWithErrorCounting(testKCUserInfo);
