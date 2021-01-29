@@ -16,10 +16,11 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": 4,
-  "iteration": 1611744134911,
+  "iteration": 1611931535002,
   "links": [],
   "panels": [
     {
+      "collapsed": false,
       "datasource": null,
       "gridPos": {
         "h": 1,
@@ -28,15 +29,21 @@
         "y": 0
       },
       "id": 10,
+      "panels": [],
       "title": "Global metrics",
       "type": "row"
     },
     {
       "datasource": "Prometheus",
+      "description": "",
       "fieldConfig": {
         "defaults": {
-          "custom": {},
+          "custom": {
+            "align": null,
+            "filterable": false
+          },
           "mappings": [],
+          "min": 0,
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -73,9 +80,10 @@
       "pluginVersion": "7.3.6",
       "targets": [
         {
-          "expr": "rate(k6_iterations[$__rate_interval])",
+          "expr": "sum(rate(k6_iterations[$__rate_interval]))",
+          "format": "time_series",
           "interval": "",
-          "legendFormat": "",
+          "legendFormat": "{{scenario}}",
           "queryType": "randomWalk",
           "refId": "A"
         }
@@ -83,6 +91,7 @@
       "timeFrom": null,
       "timeShift": null,
       "title": "Iterations per second",
+      "transformations": [],
       "type": "stat"
     },
     {
@@ -92,6 +101,7 @@
         "defaults": {
           "custom": {},
           "mappings": [],
+          "min": 0,
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -210,6 +220,7 @@
         "defaults": {
           "custom": {},
           "mappings": [],
+          "min": 0,
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -313,7 +324,7 @@
       "pluginVersion": "7.3.6",
       "targets": [
         {
-          "expr": "sum(k6_script_errors)",
+          "expr": "sum(rate(k6_script_errors[$__rate_interval]))",
           "interval": "",
           "legendFormat": "Script errors",
           "queryType": "randomWalk",
@@ -322,7 +333,7 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Errors (seen so far)",
+      "title": "Errors",
       "type": "stat"
     },
     {
@@ -340,8 +351,8 @@
       "scopedVars": {
         "K6RequestName": {
           "selected": true,
-          "text": "tokeninfo",
-          "value": "tokeninfo"
+          "text": "access-token-request",
+          "value": "access-token-request"
         }
       },
       "title": "K6 HTTP Request: ${K6RequestName}",
@@ -407,8 +418,8 @@
       "scopedVars": {
         "K6RequestName": {
           "selected": true,
-          "text": "tokeninfo",
-          "value": "tokeninfo"
+          "text": "access-token-request",
+          "value": "access-token-request"
         }
       },
       "seriesOverrides": [],
@@ -448,7 +459,7 @@
           "label": "",
           "logBase": 1,
           "max": null,
-          "min": null,
+          "min": "0",
           "show": true
         },
         {
@@ -520,8 +531,8 @@
       "scopedVars": {
         "K6RequestName": {
           "selected": true,
-          "text": "tokeninfo",
-          "value": "tokeninfo"
+          "text": "access-token-request",
+          "value": "access-token-request"
         }
       },
       "targets": [
@@ -570,6 +581,7 @@
         "defaults": {
           "custom": {},
           "mappings": [],
+          "min": 0,
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -616,646 +628,8 @@
       "scopedVars": {
         "K6RequestName": {
           "selected": true,
-          "text": "tokeninfo",
-          "value": "tokeninfo"
-        }
-      },
-      "targets": [
-        {
-          "expr": "1000*sum (rate(k6_http_${GoHttpMetricName}_sum{name=\"${K6RequestName}\"}[$__rate_interval]))/sum (rate(k6_http_${GoHttpMetricName}_count{name=\"${K6RequestName}\"}[$__rate_interval]))",
-          "interval": "",
-          "legendFormat": "{{status}}",
-          "queryType": "randomWalk",
-          "refId": "A"
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Mean latency (${GoHttpMetricName})",
-      "type": "stat"
-    },
-    {
-      "collapsed": false,
-      "datasource": null,
-      "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 16
-      },
-      "id": 26,
-      "panels": [],
-      "repeatIteration": 1611744134911,
-      "repeatPanelId": 14,
-      "scopedVars": {
-        "K6RequestName": {
-          "selected": true,
           "text": "access-token-request",
           "value": "access-token-request"
-        }
-      },
-      "title": "K6 HTTP Request: ${K6RequestName}",
-      "type": "row"
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "Prometheus",
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {},
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "fill": 8,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 8,
-        "w": 6,
-        "x": 0,
-        "y": 17
-      },
-      "hiddenSeries": false,
-      "id": 27,
-      "legend": {
-        "avg": true,
-        "current": false,
-        "max": true,
-        "min": true,
-        "show": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 1,
-      "nullPointMode": "null",
-      "options": {
-        "alertThreshold": false
-      },
-      "percentage": false,
-      "pluginVersion": "7.3.6",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "repeatIteration": 1611744134911,
-      "repeatPanelId": 16,
-      "repeatedByRow": true,
-      "scopedVars": {
-        "K6RequestName": {
-          "selected": true,
-          "text": "access-token-request",
-          "value": "access-token-request"
-        }
-      },
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": true,
-      "steppedLine": false,
-      "targets": [
-        {
-          "expr": "sum by (status) (rate(k6_http_reqs{name=\"${K6RequestName}\"}[$__rate_interval]))",
-          "interval": "",
-          "legendFormat": "HTTP {{status}}",
-          "queryType": "randomWalk",
-          "refId": "A"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "Throughput",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "short",
-          "label": "",
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": "",
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "cards": {
-        "cardPadding": null,
-        "cardRound": null
-      },
-      "color": {
-        "cardColor": "#F2495C",
-        "colorScale": "linear",
-        "colorScheme": "interpolateRdYlGn",
-        "exponent": 0.5,
-        "mode": "spectrum"
-      },
-      "dataFormat": "tsbuckets",
-      "datasource": "Prometheus",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {
-            "align": null,
-            "filterable": false
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 6,
-        "y": 17
-      },
-      "heatmap": {},
-      "hideZeroBuckets": false,
-      "highlightCards": true,
-      "id": 28,
-      "legend": {
-        "show": false
-      },
-      "pluginVersion": "7.3.6",
-      "repeatIteration": 1611744134911,
-      "repeatPanelId": 20,
-      "repeatedByRow": true,
-      "reverseYBuckets": false,
-      "scopedVars": {
-        "K6RequestName": {
-          "selected": true,
-          "text": "access-token-request",
-          "value": "access-token-request"
-        }
-      },
-      "targets": [
-        {
-          "expr": "sum(rate(k6_http_${GoHttpMetricName}_bucket{name=\"${K6RequestName}\"}[$__rate_interval])) by (le)",
-          "format": "heatmap",
-          "instant": false,
-          "interval": "",
-          "intervalFactor": 2,
-          "legendFormat": "{{le}}",
-          "queryType": "randomWalk",
-          "refId": "A"
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Latency (${GoHttpMetricName})",
-      "tooltip": {
-        "show": true,
-        "showHistogram": false
-      },
-      "tooltipDecimals": null,
-      "type": "heatmap",
-      "xAxis": {
-        "show": true
-      },
-      "xBucketNumber": null,
-      "xBucketSize": null,
-      "yAxis": {
-        "decimals": null,
-        "format": "short",
-        "logBase": 10,
-        "max": "10",
-        "min": "0",
-        "show": true,
-        "splitFactor": null
-      },
-      "yBucketBound": "auto",
-      "yBucketNumber": null,
-      "yBucketSize": null
-    },
-    {
-      "datasource": "Prometheus",
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {},
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "#EAB839",
-                "value": 100
-              },
-              {
-                "color": "dark-red",
-                "value": 1000
-              }
-            ]
-          },
-          "unit": "ms"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 4,
-        "x": 18,
-        "y": 17
-      },
-      "id": 29,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "last"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "textMode": "auto"
-      },
-      "pluginVersion": "7.3.6",
-      "repeatIteration": 1611744134911,
-      "repeatPanelId": 25,
-      "repeatedByRow": true,
-      "scopedVars": {
-        "K6RequestName": {
-          "selected": true,
-          "text": "access-token-request",
-          "value": "access-token-request"
-        }
-      },
-      "targets": [
-        {
-          "expr": "1000*sum (rate(k6_http_${GoHttpMetricName}_sum{name=\"${K6RequestName}\"}[$__rate_interval]))/sum (rate(k6_http_${GoHttpMetricName}_count{name=\"${K6RequestName}\"}[$__rate_interval]))",
-          "interval": "",
-          "legendFormat": "{{status}}",
-          "queryType": "randomWalk",
-          "refId": "A"
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Mean latency (${GoHttpMetricName})",
-      "type": "stat"
-    },
-    {
-      "collapsed": false,
-      "datasource": null,
-      "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 25
-      },
-      "id": 30,
-      "panels": [],
-      "repeatIteration": 1611744134911,
-      "repeatPanelId": 14,
-      "scopedVars": {
-        "K6RequestName": {
-          "selected": true,
-          "text": "authorization-request",
-          "value": "authorization-request"
-        }
-      },
-      "title": "K6 HTTP Request: ${K6RequestName}",
-      "type": "row"
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "Prometheus",
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {},
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "fill": 8,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 8,
-        "w": 6,
-        "x": 0,
-        "y": 26
-      },
-      "hiddenSeries": false,
-      "id": 31,
-      "legend": {
-        "avg": true,
-        "current": false,
-        "max": true,
-        "min": true,
-        "show": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 1,
-      "nullPointMode": "null",
-      "options": {
-        "alertThreshold": false
-      },
-      "percentage": false,
-      "pluginVersion": "7.3.6",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "repeatIteration": 1611744134911,
-      "repeatPanelId": 16,
-      "repeatedByRow": true,
-      "scopedVars": {
-        "K6RequestName": {
-          "selected": true,
-          "text": "authorization-request",
-          "value": "authorization-request"
-        }
-      },
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": true,
-      "steppedLine": false,
-      "targets": [
-        {
-          "expr": "sum by (status) (rate(k6_http_reqs{name=\"${K6RequestName}\"}[$__rate_interval]))",
-          "interval": "",
-          "legendFormat": "HTTP {{status}}",
-          "queryType": "randomWalk",
-          "refId": "A"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "Throughput",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "short",
-          "label": "",
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": "",
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "cards": {
-        "cardPadding": null,
-        "cardRound": null
-      },
-      "color": {
-        "cardColor": "#F2495C",
-        "colorScale": "linear",
-        "colorScheme": "interpolateRdYlGn",
-        "exponent": 0.5,
-        "mode": "spectrum"
-      },
-      "dataFormat": "tsbuckets",
-      "datasource": "Prometheus",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {
-            "align": null,
-            "filterable": false
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 6,
-        "y": 26
-      },
-      "heatmap": {},
-      "hideZeroBuckets": false,
-      "highlightCards": true,
-      "id": 32,
-      "legend": {
-        "show": false
-      },
-      "pluginVersion": "7.3.6",
-      "repeatIteration": 1611744134911,
-      "repeatPanelId": 20,
-      "repeatedByRow": true,
-      "reverseYBuckets": false,
-      "scopedVars": {
-        "K6RequestName": {
-          "selected": true,
-          "text": "authorization-request",
-          "value": "authorization-request"
-        }
-      },
-      "targets": [
-        {
-          "expr": "sum(rate(k6_http_${GoHttpMetricName}_bucket{name=\"${K6RequestName}\"}[$__rate_interval])) by (le)",
-          "format": "heatmap",
-          "instant": false,
-          "interval": "",
-          "intervalFactor": 2,
-          "legendFormat": "{{le}}",
-          "queryType": "randomWalk",
-          "refId": "A"
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Latency (${GoHttpMetricName})",
-      "tooltip": {
-        "show": true,
-        "showHistogram": false
-      },
-      "tooltipDecimals": null,
-      "type": "heatmap",
-      "xAxis": {
-        "show": true
-      },
-      "xBucketNumber": null,
-      "xBucketSize": null,
-      "yAxis": {
-        "decimals": null,
-        "format": "short",
-        "logBase": 10,
-        "max": "10",
-        "min": "0",
-        "show": true,
-        "splitFactor": null
-      },
-      "yBucketBound": "auto",
-      "yBucketNumber": null,
-      "yBucketSize": null
-    },
-    {
-      "datasource": "Prometheus",
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {},
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "#EAB839",
-                "value": 100
-              },
-              {
-                "color": "dark-red",
-                "value": 1000
-              }
-            ]
-          },
-          "unit": "ms"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 4,
-        "x": 18,
-        "y": 26
-      },
-      "id": 33,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "last"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "textMode": "auto"
-      },
-      "pluginVersion": "7.3.6",
-      "repeatIteration": 1611744134911,
-      "repeatPanelId": 25,
-      "repeatedByRow": true,
-      "scopedVars": {
-        "K6RequestName": {
-          "selected": true,
-          "text": "authorization-request",
-          "value": "authorization-request"
         }
       },
       "targets": [
@@ -1273,7 +647,7 @@
       "type": "stat"
     }
   ],
-  "refresh": "",
+  "refresh": "1s",
   "schemaVersion": 26,
   "style": "dark",
   "tags": [],
@@ -1285,14 +659,10 @@
           "selected": true,
           "tags": [],
           "text": [
-            "access-token-request",
-            "authorization-request",
-            "tokeninfo"
+            "access-token-request"
           ],
           "value": [
-            "access-token-request",
-            "authorization-request",
-            "tokeninfo"
+            "access-token-request"
           ]
         },
         "datasource": "Prometheus",
@@ -1373,7 +743,7 @@
     ]
   },
   "time": {
-    "from": "now-1m",
+    "from": "now-2m",
     "to": "now"
   },
   "timepicker": {
@@ -1387,5 +757,5 @@
   "timezone": "",
   "title": "K6-StatsD-Prometheus",
   "uid": "zDpLnqaMz",
-  "version": 28
+  "version": 35
 }
