@@ -2,15 +2,16 @@ import { check } from 'k6';
 import { pickRealm, pickClient, pickUser, getTestConfig, wrapWithErrorCounting, Keycloak } from "./lib/keycloak.js";
 import { randomSeed } from 'k6';
 
+const config = getTestConfig();
+
 export let options = {
   stages: [
-    { duration: "20s", target: 5 },
-    { duration: "2m", target: 300 }
+    { duration: config.rampupDuration, target: config.vuCount },
+    { duration: config.testDuration, target: config.vuCount },
+    { duration: config.rampupDuration, target: 0 },
   ],
   noVUConnectionReuse: true,
 };
-
-const config = getTestConfig();
 
 randomSeed(__VU);
 const realm = pickRealm(config.realmCount);
