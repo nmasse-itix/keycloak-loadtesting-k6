@@ -10,6 +10,7 @@ export let options = {
     { duration: config.testDuration, target: config.vuCount },
     { duration: config.rampupDuration, target: 0 },
   ],
+  setupTimeout: config.setupTimeout,
 };
 
 randomSeed(__VU);
